@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛒YourShop </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #0d6efd !important;
+            font-size: 1.5rem;
+        }
+        
+        .user-nav-link {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem !important;
+            margin: 0 0.2rem;
+        }
+        
+        .user-nav-link:hover {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: #0d6efd !important;
+        }
+        
+        .user-nav-link.active {
+            font-weight: 600;
+            background-color: #0d6efd;
+            color: white !important;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        
+        @media (min-width: 768px) {
+            .carousel-item img {
+                height: 400px;
+            }
+        }
+        
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(5px);
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .product-img {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            height: 200px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+        }
+        
+        .cart-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .search-box {
+            border-radius: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            margin-top: 5rem;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .price-tag {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .filter-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #e9ecef;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 1rem;
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        #about-page .hero-section {
+            padding: 5rem 0;
+        }
+
+        #about-page img {
+            border-radius: 1rem;
+        }
+
+        #about-page .feature-icon i {
+            font-size: 2rem;
+        }
+
+        /* Validation Style */
+        .form-control.is-invalid ~ .invalid-feedback {
+            display: block;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+<body class="text-dark">
+
+    <div id="app" class="min-vh-100 d-flex flex-column">
+        <header class="bg-white shadow-sm sticky-top">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-xl">
+                    <a class="navbar-brand" href="#" onclick="navigateUser('home-page')">
+                        🛒YourShop
+                    </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#user-nav-links" aria-controls="user-nav-links" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="user-nav-links">
+                        <div class="navbar-nav me-auto ms-3">
+                            <a href="#" onclick="navigateUser('home-page')" class="nav-link user-nav-link active">
+                                <i class="bi bi-house-fill me-1"></i> Home
+                            </a>
+                            <a href="#" onclick="navigateUser('products-page')" class="nav-link user-nav-link">
+                                <i class="bi bi-grid-fill me-1"></i> Products
+                            </a>
+                            <a href="#" onclick="navigateUser('about-page')" class="nav-link user-nav-link">
+                                <i class="bi bi-info-circle-fill me-1"></i> About
+                            </a>
+                            <a href="#" onclick="navigateUser('contact-page')" class="nav-link user-nav-link">
+                                <i class="bi bi-telephone-fill me-1"></i> Contact
+                            </a>
+                        </div>
+                        
+                        <div class="d-flex align-items-center">
+                            <input type="search" id="searchInput" placeholder="Search products..." class="form-control search-box me-3 d-none d-sm-block" style="width: 250px;" onkeyup="searchProducts()">
+                            
+                            <a href="#" onclick="navigateUser('cart-page')" class="nav-link position-relative mx-2" title="Shopping Cart">
+                                <i class="bi bi-cart3 fs-4"></i>
+                                <span id="cartBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary cart-badge">0</span>
+                            </a>
+                            
+                            <a href="#" onclick="navigateUser('login-page')" class="nav-link mx-2" title="Login">
+                                <i class="bi bi-person-circle fs-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main class="flex-grow-1">
+            <div class="container-xl p-3 p-md-4">
+                <div id="home-page" class="user-page fade-in">
+                    <!-- Home Page Content -->
+                    <div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="4000">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        </div>
+                        <div class="carousel-inner rounded-3 shadow">
+                            <div class="carousel-item active">
+                                <img src="https://placehold.co/1200x400/667eea/ffffff?text=Latest+Laptops" class="d-block w-100" alt="Latest Laptops">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="https://placehold.co/1200x400/764ba2/ffffff?text=Premium+Audio" class="d-block w-100" alt="Audio Equipment">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <h4>Free Shipping</h4>
+                            <p class="text-muted">Free shipping on orders over $50</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h4>Secure Payment</h4>
+                            <p class="text-muted">100% secure payment processing</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-arrow-return-left"></i>
+                            </div>
+                            <h4>Easy Returns</h4>
+                            <p class="text-muted">30-day return policy</p>
+                        </div>
+                    </div>
+
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold mb-3">Featured Products</h2>
+                        <p class="lead text-muted">Discover our handpicked selection of premium tech products</p>
+                    </div>
+                    
+                    <div id="featuredProducts" class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4">
+                        <!-- Featured products will be loaded here by JS -->
+                    </div>
+                </div>
+
+                <div id="products-page" class="user-page d-none fade-in">
+                    <!-- Products Page Content -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="display-5 fw-bold">All Products</h1>
+                        <div class="d-flex align-items-center">
+                            <select class="form-select me-3" onchange="sortProducts(this.value)" style="width: auto;">
+                                <option value="name">Sort by Name</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <aside class="col-lg-3 mb-4">
+                            <div class="filter-card p-4 rounded-3 shadow-sm">
+                                <h5 class="mb-4"><i class="bi bi-funnel me-2"></i>Filters</h5>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">Category</label>
+                                    <select class="form-select" onchange="filterByCategory(this.value)">
+                                        <option value="">All Categories</option>
+                                        <option value="laptop">Laptops</option>
+                                        <option value="audio">Audio</option>
+                                        <option value="accessories">Accessories</option>
+                                        <option value="gaming">Gaming</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">Price Range</label>
+                                    <input type="range" class="form-range" id="priceRange" min="0" max="2000" value="2000" oninput="document.getElementById('priceValue').textContent = '$' + this.value" onchange="filterByPrice(this.value)">
+                                    <div class="d-flex justify-content-between small text-muted">
+                                        <span>$0</span>
+                                        <span id="priceValue">$2000</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-outline-primary w-100" onclick="clearFilters()">
+                                    <i class="bi bi-arrow-clockwise me-2"></i>Clear Filters
+                                </button>
+                            </div>
+                        </aside>
+                        
+                        <div class="col-lg-9">
+                            <div id="productsGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+                                <!-- Products grid will be loaded here by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="about-page" class="user-page d-none fade-in">
+                    <!-- About Page Content -->
+                    <div class="hero-section text-center">
+                        <div class="container">
+                            <h1 class="display-4 fw-bold mb-3">About YourShop</h1>
+                            <p class="lead">Your trusted destination for premium technology products</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row align-items-center mb-5">
+                        <div class="col-md-6">
+                            <h2 class="fw-bold mb-3">Our Story</h2>
+                            <p class="lead">Founded in 2025, YourShop has been committed to bringing you the latest and greatest in technology products.</p>
+                            <p>We carefully curate our selection to ensure that every product meets our high standards for quality, innovation, and value. From cutting-edge laptops to premium audio equipment, we're here to help you find exactly what you need.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="about us.png" alt="Our Store" class="img-fluid rounded-3 shadow">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-award"></i>
+                            </div>
+                            <h4>Premium Quality</h4>
+                            <p class="text-muted">We partner with top brands to bring you only the best products</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <h4>Expert Support</h4>
+                            <p class="text-muted">Our knowledgeable team is here to help you make the right choice</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-4">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-lightning"></i>
+                            </div>
+                            <h4>Fast Delivery</h4>
+                            <p class="text-muted">Quick and reliable shipping to get your products to you fast</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cart-page" class="user-page d-none fade-in">
+                    <!-- Cart Page Content -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h1 class="display-5 fw-bold">Shopping Cart</h1>
+                                <button class="btn btn-outline-danger" onclick="clearCart()">
+                                    <i class="bi bi-trash me-2"></i>Clear Cart
+                                </button>
+                            </div>
+                            
+                            <div id="cartItems" class="card shadow-sm">
+                                <!-- Cart items will be loaded here by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="login-page" class="user-page d-none fade-in">
+                    <!-- Login Page Content -->
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 col-lg-5">
+                            <div class="card shadow-lg mt-md-5 border-0">
+                                <div class="card-body p-5">
+                                    <div class="text-center mb-4">
+                                        <i class="bi bi-person-circle display-1 text-primary mb-3"></i>
+                                        <h2 class="card-title" id="loginHeader">Welcome Back</h2>
+                                        <p class="text-muted" id="loginSubheader">Sign in to your account</p>
+                                    </div>
+                                    
+                                    <!-- MODIFIED: Added novalidate -->
+                                    <form id="loginForm" onsubmit="handleLogin(event)" novalidate>
+                                        <div id="createAccountFields">
+                                            <!-- Create account fields will be injected here by JS -->
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label fw-semibold">Email Address</label>
+                                            <!-- MODIFIED: Added id="email" -->
+                                            <input type="email" class="form-control form-control-lg" id="email" required>
+                                            <!-- MODIFIED: Added error message container -->
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label for="password" class="form-label fw-semibold">Password</label>
+                                            <!-- MODIFIED: Added id="password" -->
+                                            <input type="password" class="form-control form-control-lg" id="password" required>
+                                            <!-- MODIFIED: Added error message container -->
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="d-grid mb-3">
+                                            <button type="submit" class="btn btn-primary btn-lg" id="loginButton">
+                                                <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                                            </button>
+                                        </div>
+                                    </form>
+                                    
+                                    <hr class="my-4">
+                                    
+                                    <div class="text-center">
+                                        <p class="text-muted mb-3">Or sign in with</p>
+                                        <button class="btn btn-outline-primary me-2">
+                                            <i class="bi bi-google"></i>
+                                        </button>
+                                        <button class="btn btn-outline-primary">
+                                            <i class="bi bi-facebook"></i>
+                                        </button>
+                                    </div>
+                                    
+                                    <p class="text-center text-muted small mt-4" id="loginToggleText">
+                                        Don't have an account? 
+                                        <a href="#" class="text-decoration-none" onclick="toggleLoginForm(false); event.preventDefault();">Create one here</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contact-page" class="user-page d-none fade-in">
+                    <!-- Contact Page Content -->
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-5">
+                                    <h1 class="display-6 fw-bold mb-4">Get in Touch</h1>
+                                    <p class="lead text-muted mb-4">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                                    
+                                    <form id="contactForm" onsubmit="handleContact(event)">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-semibold">First Name</label>
+                                                <input type="text" class="form-control form-control-lg" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label fw-semibold">Last Name</label>
+                                                <input type="text" class="form-control form-control-lg" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Email Address</label>
+                                            <input type="email" class="form-control form-control-lg" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Subject</label>
+                                            <select class="form-select form-select-lg">
+                                                <option>General Inquiry</option>
+                                                <option>Product Support</option>
+                                                <option>Order Status</option>
+                                                <option>Returns & Exchanges</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="form-label fw-semibold">Message</label>
+                                            <textarea class="form-control form-control-lg" rows="5" required></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="bi bi-send me-2"></i>Send Message
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-4 mt-4 mt-lg-0">
+                            <div class="card shadow-sm border-0 h-100">
+                                <div class="card-body p-4">
+                                    <h5 class="fw-bold mb-4">Contact Information</h5>
+                                    
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-geo-alt-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Address</h6>
+                                            <small class="text-muted">123 Tech Street, Digital City, DC 12345</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-telephone-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Phone</h6>
+                                            <small class="text-muted">+1 (555) 123-4567</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-envelope-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Email</h6>
+                                            <small class="text-muted">support@yourshop.com</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex align-items-center mb-4">
+                                        <i class="bi bi-clock-fill text-primary fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="mb-0">Business Hours</h6>
+                                            <small class="text-muted">Mon - Fri: 9AM - 6PM</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    
+                                    <h6 class="fw-bold mb-3">Follow Us</h6>
+                                    <div class="d-flex gap-2">
+                                        <a href="#" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-facebook"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-twitter"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-instagram"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-linkedin"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <h5 class="fw-bold mb-3">🛒YourShop</h5>
+                        <p class="text-white-50">Your trusted destination for premium technology products. We're committed to bringing you the latest and greatest in tech.</p>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                     <div class="col-md-3 col-6 mb-4">
+                        <h5 class="fw-bold mb-3 text-white">Shop</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none" onclick="navigateUser('products-page')">Products</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none" onclick="filterByCategory('laptop')">Laptops</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none" onclick="filterByCategory('audio')">Audio</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none" onclick="filterByCategory('gaming')">Gaming</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-6 mb-4">
+                        <h5 class="fw-bold mb-3 text-white">Support</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none" onclick="navigateUser('contact-page')">Contact Us</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">FAQ</a></li>
+                            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Shipping</a></li>
+                            <li class="mb-2"><a href="#" class_name="text-white-50 text-decoration-none">Returns</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="my-4" style="border-color: rgba(255,255,255,0.2);">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <p class="mb-0 text-white-50">&copy; 2024 YourShop. All rights reserved.</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Product Data
+        const products = [
+            { id: 1, name: "MacBook Pro 16\"", price: 1999, category: "laptop", image: "💻", description: "Powerful laptop for professionals" },
+            { id: 2, name: "Dell XPS 13", price: 1299, category: "laptop", image: "💻", description: "Ultrabook with stunning display" },
+            { id: 3, name: "Gaming Laptop RTX", price: 1799, category: "laptop", image: "💻", description: "High-performance gaming laptop" },
+            { id: 4, name: "Surface Laptop 5", price: 999, category: "laptop", image: "💻", description: "Microsoft's premium laptop" },
+            { id: 5, name: "Sony WH-1000XM5", price: 349, category: "audio", image: "🎧", description: "Noise-canceling headphones" },
+            { id: 6, name: "AirPods Pro", price: 249, category: "audio", image: "🎧", description: "Apple's premium earbuds" },
+            { id: 7, name: "Bose QuietComfort", price: 299, category: "audio", image: "🎧", description: "Premium noise cancellation" },
+            { id: 8, name: "JBL Charge 5", price: 149, category: "audio", image: "🔊", description: "Portable Bluetooth speaker" },
+            { id: 9, name: "Razer DeathAdder V3", price: 79, category: "gaming", image: "🖱️", description: "Gaming mouse with precision" },
+            { id: 10, name: "Logitech MX Master 3", price: 99, category: "accessories", image: "🖱️", description: "Professional wireless mouse" },
+            { id: 11, name: "Mechanical Keyboard", price: 129, category: "gaming", image: "⌨️", description: "RGB gaming keyboard" },
+            { id: 12, name: "Webcam 4K Pro", price: 199, category: "accessories", image: "📹", description: "Ultra HD webcam for streaming" },
+            { id: 13, name: "Gaming Monitor 27\"", price: 399, category: "gaming", image: "🖥️", description: "144Hz gaming display" },
+            { id: 14, name: "USB-C Hub", price: 49, category: "accessories", image: "🔌", description: "Multi-port connectivity hub" },
+            { id: 15, name: "Wireless Charger", price: 39, category: "accessories", image: "🔋", description: "Fast wireless charging pad" },
+            { id: 16, name: "Gaming Headset", price: 89, category: "gaming", image: "🎮", description: "Surround sound gaming headset" }
+        ];
+
+        // Shopping Cart
+        let cart = [];
+        let filteredProducts = [...products];
+        let currentFilter = { category: '', maxPrice: 2000, search: '' };
+
+        // Navigation functionality
+        const userPages = document.querySelectorAll('.user-page');
+
+        function navigateUser(pageId) {
+            userPages.forEach(page => {
+                page.classList.add('d-none');
+                page.classList.remove('fade-in');
+            });
+            
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.remove('d-none');
+                setTimeout(() => targetPage.classList.add('fade-in'), 10);
+            }
+
+            // Update navigation links
+            const links = document.querySelectorAll('.user-nav-link');
+            links.forEach(link => link.classList.remove('active'));
+            
+            const activeLink = document.querySelector(`.user-nav-link[onclick*="'${pageId}'"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+
+            // Load page-specific content
+            if (pageId === 'home-page') {
+                loadFeaturedProducts();
+            } else if (pageId === 'products-page') {
+                // On navigating to products page, ensure filters are applied
+                applyFilters(); 
+            } else if (pageId === 'cart-page') {
+                loadCartItems();
+            } else if (pageId === 'login-page') {
+                toggleLoginForm(true);
+            }
+        }
+
+        // Product loading functions
+        function loadFeaturedProducts() {
+            const container = document.getElementById('featuredProducts');
+            const featured = products.slice(0, 8); // First 8 products as featured
+            
+            container.innerHTML = featured.map(product => `
+                <div class="col">
+                    <div class="card shadow-sm h-100">
+                        <div class="product-img">
+                            ${product.image}
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text text-muted small">${product.description}</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="price-tag">$${product.price}</span>
+                                <button class="btn btn-primary btn-sm" onclick="addToCart(${product.id})">
+                                    <i class="bi bi-cart-plus"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadAllProducts() {
+            const container = document.getElementById('productsGrid');
+            
+            if (filteredProducts.length === 0) {
+                 container.innerHTML = `<div class="col-12"><p class="text-center text-muted fs-5">No products found matching your criteria.</p></div>`;
+                 return;
+            }
+
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="col product-item" data-category="${product.category}" data-price="${product.price}">
+                    <div class="card shadow-sm h-100">
+                        <div class="product-img">
+                            ${product.image}
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text text-muted small">${product.description}</p>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="price-tag">$${product.price}</span>
+                                <button class="btn btn-primary" onclick="addToCart(${product.id})">
+                                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Cart functionality
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            updateCartBadge();
+            showToast(`${product.name} added to cart!`, 'success');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartBadge();
+            loadCartItems();
+            showToast('Item removed from cart', 'info');
+        }
+
+        function updateCartQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartBadge();
+                    loadCartItems();
+                }
+            }
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartBadge();
+            loadCartItems();
+            showToast('Cart cleared', 'info');
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+            badge.style.display = totalItems > 0 ? 'inline' : 'none';
+        }
+
+        function loadCartItems() {
+            const container = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="card-body p-4">
+                        <div class="text-center py-5">
+                            <i class="bi bi-cart-x display-1 text-muted mb-3"></i>
+                            <h4 class="text-muted">Your cart is empty</h4>
+                            <p class="text-muted">Start shopping to add items to your cart!</p>
+                            <button class="btn btn-primary btn-lg" onclick="navigateUser('products-page')">
+                                Continue Shopping
+                            </button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            container.innerHTML = `
+                <div class="card-body p-4">
+                    <div class="table-responsive">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col" class="text-center">Quantity</th>
+                                    <th scope="col" class="text-end">Total</th>
+                                    <th scope="col" class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${cart.map(item => `
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <span class="me-3 fs-3">${item.image}</span>
+                                                <div>
+                                                    <h6 class="mb-0">${item.name}</h6>
+                                                    <small class="text-muted">${item.description}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>$${item.price.toFixed(2)}</td>
+                                        <td>
+                                            <div class="btn-group d-flex" role="group">
+                                                <button class="btn btn-outline-secondary btn-sm" onclick="updateCartQuantity(${item.id}, -1)">-</button>
+                                                <span class="btn btn-outline-secondary btn-sm" style="pointer-events: none;">${item.quantity}</span>
+                                                <button class="btn btn-outline-secondary btn-sm" onclick="updateCartQuantity(${item.id}, 1)">+</button>
+                                            </div>
+                                        </td>
+                                        <td class="fw-bold text-end">$${(item.price * item.quantity).toFixed(2)}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-danger btn-sm" onclick="removeFromCart(${item.id})">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <h4 class="mb-0">Total: <span class="text-success">$${total.toFixed(2)}</span></h4>
+                        <div class="mt-2 mt-md-0">
+                            <button class="btn btn-outline-primary me-2" onclick="navigateUser('products-page')">
+                                Continue Shopping
+                            </button>
+                            <button class="btn btn-success btn-lg" onclick="checkout()">
+                                <i class="bi bi-credit-card me-2"></i>Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Filter and search functions
+        function filterByCategory(category) {
+            currentFilter.category = category;
+            applyFilters();
+            // Added navigation so filtering from footer works
+            navigateUser('products-page'); 
+        }
+
+        function filterByPrice(maxPrice) {
+            currentFilter.maxPrice = parseInt(maxPrice);
+            document.getElementById('priceValue').textContent = `$${maxPrice}`;
+            applyFilters();
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            currentFilter.search = searchTerm;
+            applyFilters();
+             // If user is searching, automatically navigate to products page
+            if (searchTerm && document.getElementById('products-page').classList.contains('d-none')) {
+                navigateUser('products-page');
+            }
+        }
+
+        function sortProducts(sortBy) {
+            switch(sortBy) {
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+            }
+            loadAllProducts();
+        }
+
+        function applyFilters() {
+            filteredProducts = products.filter(product => {
+                const categoryMatch = !currentFilter.category || product.category === currentFilter.category;
+                const priceMatch = product.price <= currentFilter.maxPrice;
+                const searchMatch = !currentFilter.search || 
+                    product.name.toLowerCase().includes(currentFilter.search) ||
+                    product.description.toLowerCase().includes(currentFilter.search);
+                
+                return categoryMatch && priceMatch && searchMatch;
+            });
+            
+             // Re-apply sorting after filtering
+            const sortSelect = document.querySelector('select[onchange*="sortProducts"]');
+            if (sortSelect) {
+                 sortProducts(sortSelect.value);
+            } else {
+                sortProducts('name'); // Default sort
+            }
+
+            // Update the product grid if we are on the products page
+            if (document.getElementById('products-page').classList.contains('d-none') === false) {
+                loadAllProducts();
+            }
+        }
+
+        function clearFilters() {
+            currentFilter = { category: '', maxPrice: 2000, search: '' };
+            document.querySelector('select[onchange*="filterByCategory"]').value = '';
+            document.getElementById('priceRange').value = 2000;
+            document.getElementById('priceValue').textContent = '$2000';
+            document.getElementById('searchInput').value = '';
+            applyFilters();
+        }
+
+        // --- NEW VALIDATION FUNCTIONS ---
+        /**
+         * Clears all validation error messages and classes from a form.
+         * @param {HTMLFormElement} form - The form element to clear.
+         */
+        function clearValidation(form) {
+            if (!form) return;
+            form.querySelectorAll('.is-invalid').forEach(input => {
+                input.classList.remove('is-invalid');
+            });
+            form.querySelectorAll('.invalid-feedback').forEach(feedback => {
+                if (feedback) feedback.textContent = '';
+            });
+        }
+
+        /**
+         * Shows an error message for a specific form field.
+         * @param {HTMLElement} field - The input/select element.
+         * @param {string} message - The error message to display.
+         */
+        function showError(field, message) {
+            if (!field) return;
+            field.classList.add('is-invalid');
+            const errorField = field.parentElement.querySelector('.invalid-feedback');
+            if (errorField) {
+                errorField.textContent = message;
+            }
+        }
+
+
+        // --- UPDATED Form handlers ---
+
+        /**
+         * Handles login and account creation form submission with validation.
+         */
+        function handleLogin(event) {
+            event.preventDefault();
+            const form = event.target;
+            clearValidation(form); // Clear previous errors
+            
+            const isCreateAccount = document.getElementById('fullName') !== null;
+            let isValid = true;
+            
+            // --- Common fields validation ---
+            const emailField = form.querySelector('#email');
+            const passwordField = form.querySelector('#password');
+            const email = emailField.value.trim();
+            const password = passwordField.value.trim();
+            
+            if (!email) {
+                isValid = false;
+                showError(emailField, 'Email address is required.');
+            } else if (!/\S+@\S+\.\S+/.test(email)) {
+                isValid = false;
+                showError(emailField, 'Please enter a valid email address.');
+            }
+            
+            if (!password) {
+                isValid = false;
+                showError(passwordField, 'Password is required.');
+            } else if (password.length < 8) {
+                isValid = false;
+                showError(passwordField, 'Password must be at least 8 characters long.');
+            }
+
+            // --- Create Account only fields validation ---
+            if (isCreateAccount) {
+                const fullNameField = form.querySelector('#fullName');
+                const addressField = form.querySelector('#address');
+                const contactField = form.querySelector('#contactNumber');
+                
+                const fullName = fullNameField.value.trim();
+                const address = addressField.value.trim();
+                const contact = contactField.value.trim();
+
+                if (!fullName) {
+                    isValid = false;
+                    showError(fullNameField, 'Full Name is required.');
+                }
+                
+                if (!address) {
+                    isValid = false;
+                    showError(addressField, 'Address is required.');
+                }
+                
+                if (!contact) {
+                    isValid = false;
+                    showError(contactField, 'Contact Number is required.');
+                } else if (!/^\d{10}$/.test(contact)) { // Simple 10 digit check
+                    isValid = false;
+                    showError(contactField, 'Please enter a valid 10-digit contact number.');
+                }
+            }
+            
+            // --- Final check ---
+            if (isValid) {
+                if (isCreateAccount) {
+                    showToast('Account created successfully! Welcome to YourShop.', 'success');
+                    toggleLoginForm(true); // Switch back to login
+                    form.reset();
+                } else {
+                    // Successful login
+                    showToast('Login successful! Welcome back.', 'success');
+                    form.reset();
+                    navigateUser('home-page'); // Go to home page after login
+                }
+            }
+        }
+
+        // Unchanged handleContact function
+        function handleContact(event) {
+            event.preventDefault();
+            showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
+            event.target.reset();
+        }
+
+        /**
+         * Toggles the login form and clears validation.
+         */
+        function toggleLoginForm(isLogin) {
+            const loginForm = document.getElementById('loginForm');
+            const createAccountFields = document.getElementById('createAccountFields');
+            const loginHeader = document.getElementById('loginHeader');
+            const loginSubheader = document.getElementById('loginSubheader');
+            const loginButton = document.getElementById('loginButton');
+            const loginToggleText = document.getElementById('loginToggleText');
+            
+            clearValidation(loginForm); // Clear errors when toggling
+            
+            if (isLogin) {
+                // Switch to Login
+                loginHeader.textContent = 'Welcome Back';
+                loginSubheader.textContent = 'Sign in to your account';
+                loginButton.innerHTML = `<i class="bi bi-box-arrow-in-right me-2"></i>Sign In`;
+                loginToggleText.innerHTML = `Don't have an account? <a href="#" class="text-decoration-none" onclick="toggleLoginForm(false); event.preventDefault();">Create one here</a>`;
+                createAccountFields.innerHTML = '';
+            } else {
+                // Switch to Create Account
+                loginHeader.textContent = 'Create Account';
+                loginSubheader.textContent = 'Join YourShop today!';
+                loginButton.innerHTML = `<i class="bi bi-person-plus me-2"></i>Create Account`;
+                loginToggleText.innerHTML = `Already have an account? <a href="#" class="text-decoration-none" onclick="toggleLoginForm(true); event.preventDefault();">Sign in here</a>`;
+                // MODIFIED: Added inputs with 'id' and 'invalid-feedback' divs
+                createAccountFields.innerHTML = `
+                    <div class="mb-3">
+                        <label for="fullName" class="form-label fw-semibold">Full Name</label>
+                        <input type="text" class="form-control form-control-lg" id="fullName" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label fw-semibold">Address</label>
+                        <input type="text" class="form-control form-control-lg" id="address" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contactNumber" class="form-label fw-semibold">Contact Number</label>
+                        <input type="tel" class="form-control form-control-lg" id="contactNumber" placeholder="e.g. 1234567890" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                `;
+            }
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty!', 'warning');
+                return;
+            }
+            showToast('Checkout functionality would be implemented here!', 'info');
+            clearCart();
+            navigateUser('home-page');
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+             // Check if Bootstrap's 'Toast' class is available
+            if (typeof bootstrap === 'undefined' || typeof bootstrap.Toast === 'undefined') {
+                console.warn('Bootstrap JS not loaded. Cannot show toast.');
+                alert(message); // Fallback to alert
+                return;
+            }
+
+            const toast = document.createElement('div');
+            
+            // Set background color based on type
+            let bgClass = 'bg-primary'; // default
+            if (type === 'success') bgClass = 'bg-success';
+            // FIXED: Removed extra '*' from '==='
+            if (type === 'warning') bgClass = 'bg-warning text-dark'; // Warning needs dark text
+            if (type === 'danger') bgClass = 'bg-danger';
+            if (type === 'info') bgClass = 'bg-info text-dark'; // Info needs dark text
+            
+            toast.className = `toast align-items-center text-white ${bgClass} border-0`;
+            toast.setAttribute('role', 'alert');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px'; // Changed to bottom
+            toast.style.right = '20px';
+            toast.style.zIndex = '9999';
+            
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            const bsToast = new bootstrap.Toast(toast, { delay: 3000 }); // Show for 3 seconds
+            bsToast.show();
+            
+            toast.addEventListener('hidden.bs.toast', () => {
+                document.body.removeChild(toast);
+            });
+        }
+
+        // Initialize the application
+        window.onload = () => {
+            navigateUser('home-page');
+            updateCartBadge();
+        };
+    </script>
+</body>
+</html>
